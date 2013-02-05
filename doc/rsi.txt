@@ -40,6 +40,9 @@ MAPS                                            *rsi-maps*
                         line mode only, as |i_CTRL-T| is too important to
                         clobber.
 
+                                                *rsi-META-BS*
+<M-BS>                  Delete backward one word.
+
                                                 *rsi-META-b*
 <M-b>                   Go backwards one word.
 

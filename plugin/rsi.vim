@@ -36,6 +36,7 @@ cmap   <script> <C-T> <SID>transposition<SID>transpose
 noremap!        <M-b> <S-Left>
 noremap!        <M-d> <C-O>dw
 cnoremap        <M-d> <S-Right><C-W>
+noremap!        <M-BS> <C-W>
 noremap!        <M-f> <S-Right>
 noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
@@ -46,9 +47,13 @@ if !has("gui_running")
   silent! exe "set <F31>=\<Esc>d"
   silent! exe "set <F32>=\<Esc>n"
   silent! exe "set <F33>=\<Esc>p"
+  silent! exe "set <F34>=\<Esc>\<C-?>"
+  silent! exe "set <F35>=\<Esc>\<C-H>"
   map! <F31> <M-d>
   map! <F32> <M-n>
   map! <F33> <M-p>
+  map! <F34> <M-BS>
+  map! <F35> <M-BS>
 endif
 
 " vim:set et sw=2:
