@@ -46,6 +46,9 @@ MAPS                                            *rsi-maps*
                                                 *rsi-META-d*
 <M-d>                   Delete forwards one word.
 
+                                                *rsi-META-BS*
+<M-BS>                  Delete backward one word.
+
                                                 *rsi-META-f*
 <M-f>                   Go forwards one word.
 
