@@ -35,6 +35,7 @@ cmap   <script> <C-T> <SID>transposition<SID>transpose
 
 noremap!        <M-b> <S-Left>
 noremap!        <M-d> <C-O>dw
+cnoremap        <M-d> <S-Right><C-W>
 noremap!        <M-f> <S-Right>
 noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
