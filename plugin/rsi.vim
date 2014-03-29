@@ -33,6 +33,10 @@ noremap! <expr> <SID>transposition getcmdpos()>strlen(getcmdline())?"\<Left>":ge
 noremap! <expr> <SID>transpose "\<BS>\<Right>".matchstr(getcmdline()[0 : getcmdpos()-2], '.$')
 cmap   <script> <C-T> <SID>transposition<SID>transpose
 
+if &encoding ==# 'latin1' && has('gui_running') && findfile('plugin/sensible.vim', escape(&rtp, ' '))
+  set encoding=utf-8
+endif
+
 noremap!        <M-b> <S-Left>
 noremap!        <M-d> <C-O>dw
 cnoremap        <M-d> <S-Right><C-W>
