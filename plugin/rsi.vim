@@ -58,6 +58,11 @@ if !has("gui_running")
   map! <F33> <M-p>
   map! <F34> <M-BS>
   map! <F35> <M-BS>
+  map <F31> <M-d>
+  map <F32> <M-n>
+  map <F33> <M-p>
+  map <F34> <M-BS>
+  map <F35> <M-BS>
 endif
 
 " vim:set et sw=2:
