@@ -35,6 +35,9 @@ MAPS                                            *rsi-maps*
 <C-f>                   Move forward one character.  Falls back to
                         |i_CTRL-F| or |c_CTRL-F| at the end of the line.
 
+                                                *rsi-CTRL-G*
+<C-g>                   Return to normal mode from the |cmdline|.
+
                                                 *rsi-CTRL-T*
 <C-t>                   Transpose two characters.  This is mapped in command
                         line mode only, as |i_CTRL-T| is too important to
