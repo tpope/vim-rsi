@@ -67,6 +67,10 @@ for a second if you actually press just escape.  Instead, rsi.vim makes
 these available by telling Vim they are existing special keys. For example,
 the key code for <S-Left> is changed to <Esc>b.
 
+To disable meta maps, add the following to your vimrc:
+>
+    let g:rsi_no_meta = 1
+<
 ABOUT                                           *rsi-about*
 
 Grab the latest version or report a bug on GitHub:
