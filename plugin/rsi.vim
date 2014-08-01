@@ -29,7 +29,7 @@ inoremap <expr> <C-E> col('.')>strlen(getline('.'))?"\<Lt>C-E>":"\<Lt>End>"
 inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
 cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
-if !empty(mapcheck('<C-G>', 'c'))
+if empty(mapcheck('<C-G>', 'c'))
   cmap <script> <C-G> <C-C>
 endif
 
