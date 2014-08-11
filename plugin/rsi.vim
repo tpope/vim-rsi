@@ -45,32 +45,73 @@ if &encoding ==# 'latin1' && has('gui_running') && !empty(findfile('plugin/sensi
   set encoding=utf-8
 endif
 
-noremap!        <M-b> <S-Left>
+function! RsiCliLeft()
+  let line = getcmdline()
+  let pos = getcmdpos()
+
+  let next = 1
+  let nextnext = 1
+  let i = 2
+  while nextnext < pos
+    let next = nextnext
+    let nextnext = match(line, '\<\S\|\>\S\|\s\zs\S\|^\|$', 0, i) + 1
+    let i += 1
+  endwhile
+
+  return repeat("\<Left>", pos - next)
+endfunction
+
+function! RsiCliRight()
+  let line = getcmdline()
+  let pos = getcmdpos()
+
+  let next = 1
+  let i = 2
+  while next <= pos && next > 0
+    let next = match(line, '\<\S\|\>\S\|\s\zs\S\|^\|$', 0, i) + 1
+    let i += 1
+  endwhile
+
+  return repeat("\<Right>", next - pos)
+endfunction
+
+
+inoremap        <M-b> <C-O>b
+cnoremap <expr> <M-b> RsiCliLeft()
+nnoremap        <M-b> b
 noremap!        <M-d> <C-O>dw
 cnoremap        <M-d> <S-Right><C-W>
 noremap!        <M-BS> <C-W>
-noremap!        <M-f> <S-Right>
+inoremap        <M-f> <C-O>w
+cnoremap <expr> <M-f> RsiCliRight()
+nnoremap        <M-f> w
 noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
 
 if !has("gui_running")
-  silent! exe "set <S-Left>=\<Esc>b"
-  silent! exe "set <S-Right>=\<Esc>f"
   silent! exe "set <F31>=\<Esc>d"
   silent! exe "set <F32>=\<Esc>n"
   silent! exe "set <F33>=\<Esc>p"
   silent! exe "set <F34>=\<Esc>\<C-?>"
   silent! exe "set <F35>=\<Esc>\<C-H>"
+  silent! exe "set <F36>=\<Esc>b"
+  silent! exe "set <F37>=\<Esc>f"
   map! <F31> <M-d>
   map! <F32> <M-n>
   map! <F33> <M-p>
   map! <F34> <M-BS>
   map! <F35> <M-BS>
+  imap <F36> <M-b>
+  cnoremap <expr> <F36> RsiCliLeft()
+  imap <F37> <M-f>
+  cnoremap <expr> <F37> RsiCliRight()
   map <F31> <M-d>
   map <F32> <M-n>
   map <F33> <M-p>
   map <F34> <M-BS>
   map <F35> <M-BS>
+  map <F36> <M-b>
+  map <F37> <M-f>
 endif
 
 " vim:set et sw=2:
