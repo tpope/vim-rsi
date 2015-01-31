@@ -47,7 +47,7 @@ endfunction
 
 cnoremap <expr> <C-T> <SID>transpose()
 
-if exists('g:rsi_no_meta')
+if exists('g:rsi_no_meta') && g:rsi_no_meta == 1
   finish
 endif
 
@@ -55,13 +55,25 @@ if &encoding ==# 'latin1' && has('gui_running') && !empty(findfile('plugin/sensi
   set encoding=utf-8
 endif
 
-noremap!        <M-b> <S-Left>
-noremap!        <M-d> <C-O>dw
-cnoremap        <M-d> <S-Right><C-W>
-noremap!        <M-BS> <C-W>
-noremap!        <M-f> <S-Right>
-noremap!        <M-n> <Down>
-noremap!        <M-p> <Up>
+"insert mode meta maps
+if !exists('g:rsi_no_insert_meta') || g:rsi_no_insert_meta == 0
+  inoremap        <M-b> <S-Left>
+  inoremap        <M-d> <C-O>dw
+  inoremap        <M-BS> <C-W>
+  inoremap        <M-f> <S-Right>
+  inoremap        <M-n> <Down>
+  inoremap        <M-p> <Up>
+endif
+
+"cmd mode meta maps
+if !exists('g:rsi_no_cmd_meta') || g:rsi_no_cmd_meta == 0
+  cnoremap        <M-b> <S-Left>
+  cnoremap        <M-d> <S-Right><C-W>
+  cnoremap        <M-BS> <C-W>
+  cnoremap        <M-f> <S-Right>
+  cnoremap        <M-n> <Down>
+  cnoremap        <M-p> <Up>
+endif
 
 if !has("gui_running") && !has('nvim')
   silent! exe "set <S-Left>=\<Esc>b"

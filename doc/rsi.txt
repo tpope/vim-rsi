@@ -71,6 +71,11 @@ To disable meta maps, add the following to your vimrc:
 >
     let g:rsi_no_meta = 1
 <
+You can also disable meta maps for insert or command mode only :
+>
+    let g:rsi_no_insert_meta = 1
+    let g:rsi_no_cmd_meta = 1
+<
 ABOUT                                           *rsi-about*
 
 Grab the latest version or report a bug on GitHub:
