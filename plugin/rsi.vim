@@ -54,23 +54,42 @@ noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
 
 if !has("gui_running")
-  silent! exe "set <S-Left>=\<Esc>b"
-  silent! exe "set <S-Right>=\<Esc>f"
-  silent! exe "set <F31>=\<Esc>d"
-  silent! exe "set <F32>=\<Esc>n"
-  silent! exe "set <F33>=\<Esc>p"
-  silent! exe "set <F34>=\<Esc>\<C-?>"
-  silent! exe "set <F35>=\<Esc>\<C-H>"
-  map! <F31> <M-d>
-  map! <F32> <M-n>
-  map! <F33> <M-p>
-  map! <F34> <M-BS>
-  map! <F35> <M-BS>
-  map <F31> <M-d>
-  map <F32> <M-n>
-  map <F33> <M-p>
-  map <F34> <M-BS>
-  map <F35> <M-BS>
+  augroup map_esc_key
+    autocmd!
+    autocmd BufEnter *
+          \  inoremap <buffer><nowait> <Esc> <Esc>
+          \| cnoremap <buffer><nowait> <Esc> <C-c>
+  augroup END
+
+  augroup map_meta_chords
+    autocmd!
+    autocmd InsertEnter *
+          \  let s:saveupdatetime = &updatetime
+          \| set updatetime=0
+    autocmd CursorHoldI *
+          \  let &updatetime = s:saveupdatetime
+          \| inoremap <Esc>b <S-Left>
+          \| inoremap <Esc>d <C-O>dw
+          \| inoremap <Esc><BS> <C-W>
+          \| inoremap <Esc>f <S-Right>
+          \| inoremap <Esc>n <Down>
+          \| inoremap <Esc>p <Up>
+    autocmd InsertLeave *
+          \ let &updatetime = s:saveupdatetime
+          \| silent! iunmap <Esc>b
+          \| silent! iunmap <Esc>d
+          \| silent! iunmap <Esc><BS>
+          \| silent! iunmap <Esc>f
+          \| silent! iunmap <Esc>n
+          \| silent! iunmap <Esc>p
+  augroup END
+
+  cnoremap <Esc>b <S-Left>
+  cnoremap <Esc>d <S-Right><C-W>
+  cnoremap <Esc><BS> <C-W>
+  cnoremap <Esc>f <S-Right>
+  cnoremap <Esc>n <Down>
+  cnoremap <Esc>p <Up>
 endif
 
 " vim:set et sw=2:
