@@ -29,9 +29,7 @@ cnoremap   <C-X><C-A> <C-A>
 
 inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))
 \ ? "0\<Lt>C-D>\<Lt>Esc>kJs"
-\ : empty(<SID>CtrlGU())
-\   ? "\<Lt>Left>"
-\   : <SID>CtrlGU() . "\<Lt>Left>"
+\ : <SID>CtrlGU() . "\<Lt>Left>"
 cnoremap        <C-B> <Left>
 
 inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
@@ -45,9 +43,7 @@ inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()
 
 inoremap <expr> <C-F> col('.')>strlen(getline('.'))
 \ ? "\<Lt>C-F>"
-\ : empty(<SID>CtrlGU())
-\   ? "\<Lt>Right>"
-\   : "\<Lt>C-G>U\<Lt>Right>"
+\ : <SID>CtrlGU() . "\<Lt>Right>"
 cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
 if empty(mapcheck('<C-G>', 'c'))
