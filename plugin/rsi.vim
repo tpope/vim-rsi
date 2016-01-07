@@ -13,9 +13,12 @@ if &ttimeoutlen == -1
   set ttimeoutlen=50
 endif
 
-let g:keep_undo_sequence = v:version > 704 || v:version == 704 && has("patch849") ? 1 : 0
+let s:ctrlg_u = has('patch-7.4.849') ? "\u07\u55" : ""
+function! s:CtrlGU()
+  return s:ctrlg_u
+endfunction
 
-inoremap <expr> <C-A> empty(g:keep_undo_sequence)
+inoremap <expr> <C-A> empty(<SID>CtrlGU())
 \ ? "\<Lt>C-O>^"
 \ : col('.') >= match(getline('.'), '\S') + 1
 \   ? repeat('<C-G>U<Left>', col('.') - match(getline('.'), '\S') - 1)
@@ -26,9 +29,9 @@ cnoremap   <C-X><C-A> <C-A>
 
 inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))
 \ ? "0\<Lt>C-D>\<Lt>Esc>kJs"
-\ : g:keep_undo_sequence
-\   ? "\<Lt>C-G>U\<Lt>Left>"
-\   : "\<Lt>Left>"
+\ : empty(<SID>CtrlGU())
+\   ? "\<Lt>Left>"
+\   : <SID>CtrlGU() . "\<Lt>Left>"
 cnoremap        <C-B> <Left>
 
 inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
@@ -36,15 +39,15 @@ cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
 
 inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()
 \ ? "\<Lt>C-E>"
-\ : empty(g:keep_undo_sequence)
+\ : empty(<SID>CtrlGU())
 \   ? "\<Lt>End>"
-\   : repeat('<C-G>U<Right>', strlen(getline('.')) - col('.') + 1)
+\   : repeat('<C-G>U<Right>', col('$') - col('.'))
 
 inoremap <expr> <C-F> col('.')>strlen(getline('.'))
 \ ? "\<Lt>C-F>"
-\ : g:keep_undo_sequence
-\   ? "\<Lt>C-G>U\<Lt>Right>"
-\   : "\<Lt>Right>"
+\ : empty(<SID>CtrlGU())
+\   ? "\<Lt>Right>"
+\   : "\<Lt>C-G>U\<Lt>Right>"
 cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
 if empty(mapcheck('<C-G>', 'c'))
