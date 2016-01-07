@@ -62,13 +62,20 @@ if &encoding ==# 'latin1' && has('gui_running') && !empty(findfile('plugin/sensi
   set encoding=utf-8
 endif
 
-noremap!        <M-b> <S-Left>
+cnoremap        <M-b> <S-Left>
 noremap!        <M-d> <C-O>dw
 cnoremap        <M-d> <S-Right><C-W>
 noremap!        <M-BS> <C-W>
-noremap!        <M-f> <S-Right>
+cnoremap        <M-f> <S-Right>
 noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
+
+inoremap <expr> <S-Left> col('.') <= match(getline('.'), '\S') + 1 <bar><bar> empty(<SID>CtrlGU()) 
+ \ ? '<S-Left>'
+ \ : repeat('<C-G>U<Left>', col('.') - match(getline('.'), '\v\s\zs\w+\s?%' . col('.') . 'c') - 1)
+inoremap <expr> <S-Right> col('.') > match(getline('.'), '\s\w', col('.')-1)+1 <bar><bar> empty(<SID>CtrlGU())
+ \ ? '<S-Right>'
+ \ : repeat('<C-G>U<Right>', match(getline('.'), '\s\w', col('.')-1) - col('.') + 2)
 
 if !has("gui_running")
   silent! exe "set <S-Left>=\<Esc>b"
