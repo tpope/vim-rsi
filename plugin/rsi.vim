@@ -13,20 +13,37 @@ if &ttimeoutlen == -1
   set ttimeoutlen=50
 endif
 
-inoremap        <C-A> <C-O>^
+let s:ctrlg_u = has('patch-7.4.849') ? "\u07\u55" : ""
+function! s:CtrlGU()
+  return s:ctrlg_u
+endfunction
+
+inoremap <expr> <C-A> empty(<SID>CtrlGU())
+\ ? "\<Lt>C-O>^"
+\ : col('.') >= match(getline('.'), '\S') + 1
+\   ? repeat('<C-G>U<Left>', col('.') - match(getline('.'), '\S') - 1)
+\   : repeat('<C-G>U<Right>', match(getline('.'), '\S') - col('.') + 1)
 inoremap   <C-X><C-A> <C-A>
 cnoremap        <C-A> <Home>
 cnoremap   <C-X><C-A> <C-A>
 
-inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
+inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))
+\ ? "0\<Lt>C-D>\<Lt>Esc>kJs"
+\ : <SID>CtrlGU() . "\<Lt>Left>"
 cnoremap        <C-B> <Left>
 
 inoremap <expr> <C-D> col('.')>strlen(getline('.'))?"\<Lt>C-D>":"\<Lt>Del>"
 cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())?"\<Lt>C-D>":"\<Lt>Del>"
 
-inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
+inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()
+\ ? "\<Lt>C-E>"
+\ : empty(<SID>CtrlGU())
+\   ? "\<Lt>End>"
+\   : repeat('<C-G>U<Right>', col('$') - col('.'))
 
-inoremap <expr> <C-F> col('.')>strlen(getline('.'))?"\<Lt>C-F>":"\<Lt>Right>"
+inoremap <expr> <C-F> col('.')>strlen(getline('.'))
+\ ? "\<Lt>C-F>"
+\ : <SID>CtrlGU() . "\<Lt>Right>"
 cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
 if empty(mapcheck('<C-G>', 'c'))
@@ -45,13 +62,20 @@ if &encoding ==# 'latin1' && has('gui_running') && !empty(findfile('plugin/sensi
   set encoding=utf-8
 endif
 
-noremap!        <M-b> <S-Left>
+cnoremap        <M-b> <S-Left>
 noremap!        <M-d> <C-O>dw
 cnoremap        <M-d> <S-Right><C-W>
 noremap!        <M-BS> <C-W>
-noremap!        <M-f> <S-Right>
+cnoremap        <M-f> <S-Right>
 noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
+
+inoremap <expr> <S-Left> col('.') <= match(getline('.'), '\S') + 2 <bar><bar> empty(<SID>CtrlGU()) 
+ \ ? '<S-Left>'
+ \ : repeat('<C-G>U<Left>', col('.') - match(getline('.'), '\v\s\zs\S+\s?%' . col('.') . 'c') - 1)
+inoremap <expr> <S-Right> col('.') > match(getline('.'), '\s\S', col('.')-1)+1 <bar><bar> empty(<SID>CtrlGU())
+ \ ? '<S-Right>'
+ \ : repeat('<C-G>U<Right>', match(getline('.'), '\s\S', col('.')-1) - col('.') + 2)
 
 if !has("gui_running")
   silent! exe "set <S-Left>=\<Esc>b"
