@@ -70,12 +70,12 @@ cnoremap        <M-f> <S-Right>
 noremap!        <M-n> <Down>
 noremap!        <M-p> <Up>
 
-inoremap <expr> <S-Left> col('.') <= match(getline('.'), '\S') + 1 <bar><bar> empty(<SID>CtrlGU()) 
+inoremap <expr> <S-Left> col('.') <= match(getline('.'), '\S') + 2 <bar><bar> empty(<SID>CtrlGU()) 
  \ ? '<S-Left>'
- \ : repeat('<C-G>U<Left>', col('.') - match(getline('.'), '\v\s\zs\w+\s?%' . col('.') . 'c') - 1)
-inoremap <expr> <S-Right> col('.') > match(getline('.'), '\s\w', col('.')-1)+1 <bar><bar> empty(<SID>CtrlGU())
+ \ : repeat('<C-G>U<Left>', col('.') - match(getline('.'), '\v\s\zs\S+\s?%' . col('.') . 'c') - 1)
+inoremap <expr> <S-Right> col('.') > match(getline('.'), '\s\S', col('.')-1)+1 <bar><bar> empty(<SID>CtrlGU())
  \ ? '<S-Right>'
- \ : repeat('<C-G>U<Right>', match(getline('.'), '\s\w', col('.')-1) - col('.') + 2)
+ \ : repeat('<C-G>U<Right>', match(getline('.'), '\s\S', col('.')-1) - col('.') + 2)
 
 if !has("gui_running")
   silent! exe "set <S-Left>=\<Esc>b"
