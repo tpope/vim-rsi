@@ -8,11 +8,6 @@ if exists("g:loaded_rsi") || v:version < 700 || &cp
 endif
 let g:loaded_rsi = 1
 
-set ttimeout
-if &ttimeoutlen == -1
-  set ttimeoutlen=50
-endif
-
 inoremap        <C-A> <C-O>^
 inoremap   <C-X><C-A> <C-A>
 cnoremap        <C-A> <Home>
@@ -39,10 +34,6 @@ cmap   <script> <C-T> <SID>transposition<SID>transpose
 
 if exists('g:rsi_no_meta')
   finish
-endif
-
-if &encoding ==# 'latin1' && has('gui_running') && !empty(findfile('plugin/sensible.vim', escape(&rtp, ' ')))
-  set encoding=utf-8
 endif
 
 noremap!        <M-b> <S-Left>
