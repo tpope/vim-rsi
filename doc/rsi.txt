@@ -36,7 +36,7 @@ MAPS                                            *rsi-maps*
                         |i_CTRL-F| or |c_CTRL-F| at the end of the line.
 
                                                 *rsi-CTRL-G*
-<C-g>                   Return to normal mode from the |cmdline|.
+<C-g>                   Removed, as it conflicts with |c_CTRL-G|.
 
                                                 *rsi-CTRL-T*
 <C-t>                   Transpose two characters.  This is mapped in command
