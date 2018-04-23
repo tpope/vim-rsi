@@ -39,9 +39,7 @@ MAPS                                            *rsi-maps*
 <C-g>                   Removed, as it conflicts with |c_CTRL-G|.
 
                                                 *rsi-CTRL-T*
-<C-t>                   Transpose two characters.  This is mapped in command
-                        line mode only, as |i_CTRL-T| is too important to
-                        clobber.
+<C-t>                   Removed, as it conflicts with |c_CTRL-T|.
 
                                                 *rsi-META-BS*
 <M-BS>                  Delete backward one word.
