@@ -31,7 +31,7 @@ cnoremap <expr> <C-F> getcmdpos()>strlen(getcmdline())?&cedit:"\<Lt>Right>"
 
 function! s:transpose() abort
   let pos = getcmdpos()
-  if getcmdtype() ==# '/'
+  if getcmdtype() =~# '[?/]'
     return "\<C-T>"
   elseif pos > strlen(getcmdline())
     let pre = "\<Left>"
