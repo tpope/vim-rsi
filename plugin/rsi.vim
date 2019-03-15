@@ -47,6 +47,16 @@ endfunction
 
 cnoremap <expr> <C-T> <SID>transpose()
 
+function! s:ctrl_u()
+  if getcmdpos() > 1
+    let @- = getcmdline()[:getcmdpos()-2]
+  endif
+  return "\<C-U>"
+endfunction
+
+cnoremap <expr> <C-U> <SID>ctrl_u()
+cnoremap        <C-Y> <C-R>-
+
 if exists('g:rsi_no_meta')
   finish
 endif
