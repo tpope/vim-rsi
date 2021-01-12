@@ -55,7 +55,7 @@ function! s:ctrl_u()
 endfunction
 
 cnoremap <expr> <C-U> <SID>ctrl_u()
-cnoremap        <C-Y> <C-R>-
+cnoremap <expr> <C-Y> pumvisible() ? "\<C-Y>" : "\<C-R>-"
 
 if exists('g:rsi_no_meta')
   finish
