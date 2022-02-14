@@ -104,6 +104,7 @@ else
     tnoremap      <F35> <Esc><C-H>
   endif
   augroup rsi_gui
+    autocmd!
     autocmd GUIEnter * call s:MapMeta()
   augroup END
 endif
