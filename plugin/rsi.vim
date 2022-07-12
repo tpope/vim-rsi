@@ -87,20 +87,22 @@ else
   silent! exe "set <F34>=\<Esc>\<C-?>"
   silent! exe "set <F35>=\<Esc>\<C-H>"
   noremap!        <F29> <S-Left>
-  tnoremap        <F29> <Esc>b
   noremap!        <F30> <S-Right>
-  tnoremap        <F30> <Esc>f
   noremap!        <F31> <C-O>dw
   cnoremap        <F31> <S-Right><C-W>
-  tnoremap        <F31> <Esc>d
   noremap!        <F32> <Down>
-  tnoremap        <F32> <Esc>n
   noremap!        <F33> <Up>
-  tnoremap        <F33> <Esc>p
   noremap!        <F34> <C-W>
-  tnoremap        <F34> <Esc><C-?>
   noremap!        <F35> <C-W>
-  tnoremap        <F35> <Esc><C-H>
+  if has('terminal')
+    tnoremap      <F29> <Esc>b
+    tnoremap      <F30> <Esc>f
+    tnoremap      <F31> <Esc>d
+    tnoremap      <F32> <Esc>n
+    tnoremap      <F33> <Esc>p
+    tnoremap      <F34> <Esc><C-?>
+    tnoremap      <F35> <Esc><C-H>
+  endif
   augroup rsi_gui
     autocmd GUIEnter * call s:MapMeta()
   augroup END
