@@ -94,6 +94,15 @@ else
   noremap!        <F33> <Up>
   noremap!        <F34> <C-W>
   noremap!        <F35> <C-W>
+  if has('terminal')
+    tnoremap      <F29> <Esc>b
+    tnoremap      <F30> <Esc>f
+    tnoremap      <F31> <Esc>d
+    tnoremap      <F32> <Esc>n
+    tnoremap      <F33> <Esc>p
+    tnoremap      <F34> <Esc><C-?>
+    tnoremap      <F35> <Esc><C-H>
+  endif
   augroup rsi_gui
     autocmd GUIEnter * call s:MapMeta()
   augroup END
