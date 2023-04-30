@@ -8,6 +8,10 @@ if exists("g:loaded_rsi") || v:version < 700 || &cp
 endif
 let g:loaded_rsi = 1
 
+if !exists("g:rsi_force_meta")
+  let g:rsi_force_meta = 0
+endif
+
 set ttimeout
 if &ttimeoutlen == -1
   set ttimeoutlen=50
@@ -76,7 +80,7 @@ function! s:MapMeta() abort
   noremap!        <M-C-h> <C-W>
 endfunction
 
-if has("gui_running") || has('nvim')
+if has("gui_running") || has('nvim') || g:rsi_force_meta
   call s:MapMeta()
 else
   silent! exe "set <F29>=\<Esc>b"
