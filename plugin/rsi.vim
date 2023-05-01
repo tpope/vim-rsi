@@ -18,6 +18,9 @@ inoremap   <C-X><C-A> <C-A>
 cnoremap        <C-A> <Home>
 cnoremap   <C-X><C-A> <C-A>
 
+cnoremap   <C-U> <Home>let @- = "<C-E>"<Return>:
+cnoremap   <C-Y> <C-R>-
+
 inoremap <expr> <C-B> getline('.')=~'^\s*$'&&col('.')>strlen(getline('.'))?"0\<Lt>C-D>\<Lt>Esc>kJs":"\<Lt>Left>"
 cnoremap        <C-B> <Left>
 
